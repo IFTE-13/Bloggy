@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { navLinks, siteName } from '@/lib/constants';
 import { Menu } from "lucide-react"
@@ -44,6 +44,9 @@ const Navbar = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetHeader>
+                <SheetTitle>Bloggy</SheetTitle>
+              </SheetHeader>
                 <div className="flex flex-col space-y-4 mt-6">
                   {navLinks.map((link) => (
                     <Link
