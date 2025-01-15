@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-[calc(100vh-113px)]">
       Hello world
     </div>
   );
