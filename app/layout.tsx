@@ -1,8 +1,9 @@
-// app/layout.tsx
+import "@/styles/globals.css";
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/shared/Navbar"
+import Footer from "@/components/shared/Footer";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -12,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -20,9 +21,8 @@ export default function RootLayout({
           enableSystem
         >
           <Navbar />
-          <main className="container mx-auto px-4 py-8">
-            {children}
-          </main>
+          {children}
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>
