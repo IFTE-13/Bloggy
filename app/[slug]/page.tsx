@@ -2,9 +2,10 @@ import NotionPageWrapper from '@/components/NotionPageWrapper';
 import { fetchBySlug, fetchPageBlocks } from '@/lib/notion';
 import { slugToTitle } from '@/lib/utils';
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const page = await fetchBySlug(params.slug);
-  const title = slugToTitle(params.slug);
+export default async function Page({ params }: { params : Promise<{ slug : string}>}) {
+  const slug = (await params).slug
+  const page = await fetchBySlug(slug);
+  const title = await slugToTitle(slug);
   
   if (!page) {
     return <div>Page not found</div>;

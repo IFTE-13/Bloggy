@@ -1,14 +1,17 @@
-import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectResponse, RichTextItemResponse } from "@notionhq/client/build/src/api-endpoints";
 import React, { JSX } from 'react';
+import Image from 'next/image';
 
-type BlockProps = {
-  block: BlockObjectResponse;
-};
+export interface TextProps {
+  text: RichTextItemResponse[];
+}
 
-const Text = ({ text }: any) => {
+const Text = ({ text }: TextProps) => {
   if (!text) return null;
 
-  return text.map((value: any, i: number) => {
+  return text.map((value: RichTextItemResponse, i: number) => {
+    if (value.type !== 'text') return null;
+
     const {
       annotations: { bold, code, italic, strikethrough, underline },
       text,
@@ -36,6 +39,10 @@ const Text = ({ text }: any) => {
       </span>
     );
   });
+};
+
+type BlockProps = {
+  block: BlockObjectResponse;
 };
 
 const BlockRenderer = ({ block }: BlockProps) => {
@@ -108,11 +115,14 @@ const BlockRenderer = ({ block }: BlockProps) => {
       
       return (
         <figure className="my-4">
-          <img
-            src={imageUrl}
-            alt={block.image.caption?.[0]?.plain_text || 'Notion image'}
-            className="rounded-lg"
-          />
+          <div className="relative w-full h-[400px]">
+            <Image
+              src={imageUrl}
+              alt={block.image.caption?.[0]?.plain_text || 'Notion image'}
+              fill
+              className="rounded-lg object-contain"
+            />
+          </div>
           {block.image.caption && (
             <figcaption className="text-center text-gray-500 mt-2">
               <Text text={block.image.caption} />
@@ -131,7 +141,6 @@ interface NotionPageProps {
 }
 
 const NotionPage: React.FC<NotionPageProps> = ({ blocks }) => {
-  // Group consecutive list items together
   const content = blocks.reduce((acc: JSX.Element[], block: BlockObjectResponse, i: number) => {
     if (
       block.type === 'bulleted_list_item' &&

@@ -1,5 +1,5 @@
 import { PageObjectResponse, BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import NotionPage from "./NotionPage";
 
