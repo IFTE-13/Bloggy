@@ -70,3 +70,38 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.notion-content pre {
+  @apply p-4 rounded-lg my-4 overflow-x-auto;
+}
+
+.notion-content code {
+  @apply font-mono text-sm;
+}
+
+/* Style for inline code */
+.notion-content :not(pre) > code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+}
+
+/* Ensure proper spacing for code blocks */
+.notion-content pre code {
+  @apply p-0;
+  background: none;
+}
+
+/* Add styles for mermaid diagrams */
+.notion-content pre.mermaid {
+  @apply bg-transparent text-center;
+}
